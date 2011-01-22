@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require File.join(File.dirname(__FILE__), '../test_helper')
-require 'deck'
 
 class DeckTest < Test::Unit::TestCase
   context "a deck" do
