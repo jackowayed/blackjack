@@ -29,9 +29,30 @@ class HandTest < Test::Unit::TestCase
       end
     end
 
-    context "#sum" do
+    context "#final_sum" do
       should "return the sum of the cards" do
-        assert_equal @hand.cards.reduce(:+), @hand.sum
+        @hand.cards = [2,3]
+        assert_equal 5, @hand.final_sum
+      end
+
+      should "value face cards as 10" do
+        @hand.cards = [13, 11]
+        assert_equal 20, @hand.final_sum
+      end
+
+      should "value aces as 11 when that doesn't bust them" do
+        @hand.cards = [1, 4]
+        assert_equal 15, @hand.final_sum
+      end
+
+      should "value aces as 1 when valuing them as 11 would bust them" do
+        @hand.cards = [1,1,1]
+        assert_equal 13, @hand.final_sum
+      end
+
+      should "value aces as 1 when they're busted regardless" do
+        @hand.cards = [13, 5, 1, 12]
+        assert_equal 26, @hand.final_sum
       end
     end
   end
