@@ -70,5 +70,52 @@ class HandTest < Test::Unit::TestCase
         assert @hand.stood
       end
     end
+
+    context "#result" do
+      setup do
+        @dealer = Hand.new @deck
+      end
+
+      should "return -1 if the player is greater than 21, regardless" do
+        @hand.cards = [11, 5, 13]
+        @dealer.cards = [11, 3, 13]
+        assert_equal -1, @hand.result(@dealer)
+      end
+
+      should "return -1 if the player is less than the dealer" do
+        @hand.cards = [12, 7]
+        @dealer.cards = [10, 8]
+        assert_equal -1, @hand.result(@dealer)
+      end
+
+      should "return 0 if the player is equal to the dealer" do
+        @hand.cards = [12, 7]
+        @dealer.cards = [10, 7]
+        assert_equal 0, @hand.result(@dealer)
+      end
+
+      should "return 1 if the player is greater than the dealer" do
+        @hand.cards = [12, 8]
+        @dealer.cards = [10, 7]
+        assert_equal 1, @hand.result(@dealer)
+      end
+
+      should "return 1 if the dealer goes bust and player doesn't" do
+        @hand.cards = [2,3]
+        @dealer.cards = [10, 5, 10]
+        assert_equal 1, @hand.result(@dealer)
+      end
+    end
+
+    context "#double_down" do
+      setup do
+        assert_equal false, @hand.stood?
+        @hand.stand
+      end
+
+      should "stand" do
+        assert @hand.stood
+      end
+    end
   end
 end

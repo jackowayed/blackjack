@@ -1,4 +1,6 @@
 class Hand
+  include Cards
+
   attr_accessor :cards, :stood
 
   def initialize(deck, first=nil)
@@ -6,10 +8,18 @@ class Hand
     @cards << (first ? first : deck.draw)
     @cards << deck.draw
     @stood = false
+    @multiplier = 1
   end
 
   def hit(deck)
     @cards << deck.draw
+  end
+
+  def score_string
+    return final_sum if stood
+    under_21 = possible_under_21
+    return under_21.join('/') unless under_21.empty?
+    final_sum
   end
 
   # returns the most favorable sum possible
@@ -36,7 +46,7 @@ class Hand
   end
 
   def to_s
-    @cards.join ', '
+    @cards.map{|c| card_string c}.join(', ') + " (#{score_string})"
   end
 
   def stood?
@@ -45,5 +55,17 @@ class Hand
 
   def stand
     @stood = true
+  end
+
+  def double_down(deck)
+    hit deck
+    stand
+    @multiplier *= 2
+  end
+
+  def result(dealer)
+    return -@multiplier if final_sum > 21
+    return @multiplier if dealer.final_sum > 21
+    @multiplier * (final_sum <=> dealer.final_sum)
   end
 end

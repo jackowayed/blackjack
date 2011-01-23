@@ -13,5 +13,6 @@ class Deck
   def reset
     # shoe of 10 decks
     @cards = Array(1..13) * 10
+    
   end
 end

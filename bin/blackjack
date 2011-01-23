@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+Dir[File.join(File.dirname(__FILE__), '../lib/*')].each do |file|
+  require file
+end
+
+g = Game.new
+
+while g.play_round
+end
