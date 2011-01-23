@@ -13,6 +13,7 @@ class Hand
 
   def hit(deck)
     @cards << deck.draw
+    stand if final_sum > 21
   end
 
   def score_string
