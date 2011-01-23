@@ -1,10 +1,11 @@
 class Hand
-  attr_accessor :cards
+  attr_accessor :cards, :stood
 
   def initialize(deck, first=nil)
     @cards = []
     @cards << (first ? first : deck.draw)
     @cards << deck.draw
+    @stood = false
   end
 
   def hit(deck)
@@ -32,5 +33,17 @@ class Hand
     @cards.reduce [0,0] do |sums, card|
       [sums[0] + [card, 10].min, sums[1] + (card == 1 ? 1: 0)]
     end
+  end
+
+  def to_s
+    @cards.join ', '
+  end
+
+  def stood?
+    stood
+  end
+
+  def stand
+    @stood = true
   end
 end

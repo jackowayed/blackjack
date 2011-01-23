@@ -13,6 +13,10 @@ class HandTest < Test::Unit::TestCase
       assert_equal 2, @hand.cards.length
     end
 
+    should "start with stood == false" do
+      assert_equal false, @hand.stood?
+    end
+
     context "#hit" do
 
       setup do
@@ -53,6 +57,17 @@ class HandTest < Test::Unit::TestCase
       should "value aces as 1 when they're busted regardless" do
         @hand.cards = [13, 5, 1, 12]
         assert_equal 26, @hand.final_sum
+      end
+    end
+
+    context "#stand" do
+      setup do
+        assert_equal false, @hand.stood?
+        @hand.stand
+      end
+
+      should "set stood to true" do
+        assert @hand.stood
       end
     end
   end
