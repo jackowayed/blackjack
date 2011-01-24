@@ -48,14 +48,14 @@ class Game
         end
       end
     end
-    puts "Your final hand: #{hands[hand_index]}"
+    puts "Your final hand[s]:\n#{hands.join "\n"}"
 
     until @dealer.final_sum >= 17
       @dealer.hit @deck
     end
     @dealer.stand
 
-    puts "Dealer's hand: #{@dealer}"
+    puts "Dealer's hand:\n#{@dealer}"
     # since bets when you split/double-down are the same,
     # we can just sum the outcomes and multiply that by the bet
     # to get the net change in money
