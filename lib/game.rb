@@ -26,7 +26,7 @@ class Game
       hand_index += 1 if hands[hand_index].stood?
       puts "Your hand: #{hands[hand_index]}"
       possibilities = [['[h]it', 'h'], ['[s]tand', 's']]
-      if hands[hand_index].cards.length == 2 && @chips >= (bet * hands.length + 1)
+      if hands[hand_index].cards.length == 2 && @chips >= (bet * (hands.length + 1))
         possibilities << ['[d]ouble-down', 'd']
         possibilities << ['s[p]lit', 'p'] if hands[hand_index].cards[0] == hands[hand_index].cards[1]
       end
