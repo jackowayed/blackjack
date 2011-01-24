@@ -6,7 +6,7 @@ class Hand
     @cards << (first ? first : deck.draw)
     @cards << deck.draw
     # automatically stand if it's a blackjack
-    @stood = blackjack?
+    @stood = false
     @multiplier = 1
   end
 
@@ -64,9 +64,6 @@ class Hand
   end
 
   def result(dealer)
-    return -@multiplier if final_sum > 21
-    return @multiplier if dealer.final_sum > 21
-
     # blackjacks
     # push if they're both blackjack
     # player gets a 3:2 payout if they get blackjack and dealer doesn't
@@ -74,6 +71,9 @@ class Hand
     return 0 if blackjack? && dealer.blackjack?
     return @multiplier * 1.5 if blackjack?
     return -@multiplier if dealer.blackjack?
+
+    return -@multiplier if final_sum > 21
+    return @multiplier if dealer.final_sum > 21
 
     @multiplier * (final_sum <=> dealer.final_sum)
   end

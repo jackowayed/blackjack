@@ -129,6 +129,12 @@ class HandTest < Test::Unit::TestCase
         @dealer.cards = [11, 1]
         assert_equal -1, @hand.result(@dealer)
       end
+
+      should "return 1.5 if dealer busts and player gets blackjack" do
+        @hand.cards = [10, 1]
+        @dealer.cards = [10, 5, 8]
+        assert_equal 1.5, @hand.result(@dealer)
+      end
     end
 
     context "#double_down" do
