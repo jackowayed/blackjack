@@ -1,6 +1,4 @@
 class Game
-  include Cards
-
   attr_accessor :chips
 
   FIRST_CHAR = lambda {|input| input[0].chr.downcase}
@@ -18,7 +16,7 @@ class Game
                           (1..max_bet),
                           lambda(&:to_i)
     @dealer = Hand.new @deck
-    puts "Dealer: #{card_string @dealer.cards[0]}"
+    puts "Dealer: #{Deck.card_string @dealer.cards[0]}"
 
     hands = [Hand.new @deck]
     hand_index = 0

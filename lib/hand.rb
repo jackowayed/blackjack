@@ -1,6 +1,4 @@
 class Hand
-  include Cards
-
   attr_accessor :cards, :stood
 
   def initialize(deck, first=nil)
@@ -47,7 +45,7 @@ class Hand
   end
 
   def to_s
-    @cards.map{|c| card_string c}.join(', ') + " (#{score_string})"
+    @cards.map{|c| Deck.card_string c}.join(', ') + " (#{score_string})"
   end
 
   def stood?
