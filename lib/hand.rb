@@ -67,4 +67,8 @@ class Hand
     return @multiplier if dealer.final_sum > 21
     @multiplier * (final_sum <=> dealer.final_sum)
   end
+
+  def blackjack?
+    @cards.length == 2 && final_sum == 21
+  end
 end

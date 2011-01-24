@@ -117,5 +117,24 @@ class HandTest < Test::Unit::TestCase
         assert @hand.stood
       end
     end
+
+    context "#blackjack" do
+      should "return false for hands that don't equal 21" do
+        @hand.cards = [10, 10]
+        assert_equal false, @hand.blackjack?
+      end
+
+      should "return false for hands that add up to 21 but aren't just an Ace and a 10-valued card" do
+        @hand.cards = [5,5,5,4,2]
+        assert_equal false, @hand.blackjack?
+      end
+
+      should "return true for hands with an Ace and a 10-valued card" do
+        @hand.cards = [1, 10]
+        assert @hand.blackjack?
+        @hand.cards = [12, 1]
+        assert @hand.blackjack?
+      end
+    end
   end
 end
