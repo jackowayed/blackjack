@@ -45,6 +45,7 @@ class Game
         hands[hand_index].hit @deck
       when 'd'
         hands[hand_index].double_down @deck
+        puts "Doubled-down hand: #{hands[hand_index]}"
       when 'p'
         card = hands[hand_index].cards.first
         hands.delete_at hand_index
