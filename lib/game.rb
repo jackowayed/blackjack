@@ -20,7 +20,7 @@ class Game
 
     hands = [Hand.new @deck]
     hand_index = 0
-    until hands.last.stood?
+    until hands.last.stood? || @dealer.blackjack?
       hand_index += 1 if hands[hand_index].stood?
       puts "Your hand: #{hands[hand_index]}"
       possibilities = [['[h]it', 'h'], ['[s]tand', 's']]
@@ -58,7 +58,8 @@ class Game
     # we can just sum the outcomes and multiply that by the bet
     # to get the net change in money
     results = hands.map {|hand| hand.result(@dealer)}
-    @chips += results.reduce(:+) * bet
+    @chips += (results.reduce(:+) * bet).to_i
+    @chips = @chips.to_i
     puts "You have #{@chips} chips"
     if @chips <= 0
       puts "Thanks for playing!"
