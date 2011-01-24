@@ -21,7 +21,14 @@ class Game
     hands = [Hand.new @deck]
     hand_index = 0
     until hands.last.stood? || @dealer.blackjack?
-      hand_index += 1 if hands[hand_index].stood?
+      if hands[hand_index].blackjack?
+        hands[hand_index].stand
+        puts "Blackjack!"
+      end
+      if hands[hand_index].stood?
+        hand_index += 1
+        next
+      end
       puts "Your hand: #{hands[hand_index]}"
       possibilities = [['[h]it', 'h'], ['[s]tand', 's']]
       if hands[hand_index].cards.length == 2 && @chips >= (bet * (hands.length + 1))
@@ -48,6 +55,8 @@ class Game
     end
     puts "Your final hand[s]:\n#{hands.join "\n"}"
 
+    # hit even if the player got blackjack because
+    # and theoretically there are other people at the table
     until @dealer.final_sum >= 17
       @dealer.hit @deck
     end
