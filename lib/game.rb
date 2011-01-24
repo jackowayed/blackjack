@@ -1,7 +1,7 @@
 class Game
   attr_accessor :chips
 
-  FIRST_CHAR = lambda {|input| input[0].chr.downcase}
+  FIRST_CHAR = lambda {|input| input[0].chr.downcase rescue nil}
 
   def initialize
     @chips = 500
