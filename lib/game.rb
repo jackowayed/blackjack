@@ -62,6 +62,10 @@ class Game
     results = hands.map {|hand| hand.result(@dealer)}
     @chips += results.reduce(:+) * bet
     puts "You have #{@chips} chips"
+    if @chips <= 0
+      puts "Thanks for playing!"
+      return false
+    end
     continue = get_valid_input "Play again? (y/n)",
                                ['y', 'n'],
                                FIRST_CHAR
