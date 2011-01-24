@@ -105,6 +105,30 @@ class HandTest < Test::Unit::TestCase
         @dealer.cards = [10, 5, 10]
         assert_equal 1, @hand.result(@dealer)
       end
+
+      should "return 1.5 if player gets blackjack and dealer doesn't" do
+        @hand.cards = [11, 1]
+        @dealer.cards = [10, 5]
+        assert_equal 1.5, @hand.result(@dealer)
+      end
+
+      should "return 0 if both get blackjack" do
+        @hand.cards = [11, 1]
+        @dealer.cards = [1, 10]
+        assert_equal 0, @hand.result(@dealer)
+      end
+
+      should "return -1 if the dealer gets blackjack and player doesn't" do
+        @hand.cards = [10, 5]
+        @dealer.cards = [11, 1]
+        assert_equal -1, @hand.result(@dealer)
+      end
+
+      should "return -1 if the dealer gets blackjack and player gets 21 that isn't blackjack" do
+        @hand.cards = [10, 5, 6]
+        @dealer.cards = [11, 1]
+        assert_equal -1, @hand.result(@dealer)
+      end
     end
 
     context "#double_down" do
