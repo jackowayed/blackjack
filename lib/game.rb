@@ -40,7 +40,6 @@ class Game
         hands[hand_index].hit @deck
       when 'd'
         hands[hand_index].double_down @deck
-        puts "Your hand: #{hands[hand_index]}"
       when 'p'
         card = hands[hand_index].cards.first
         hands.delete_at hand_index
@@ -49,6 +48,7 @@ class Game
         end
       end
     end
+    puts "Your final hand: #{hands[hand_index]}"
 
     until @dealer.final_sum >= 17
       @dealer.hit @deck
